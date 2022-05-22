@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SparkChart = () => {
+const SparkLine = () => {
   return (
     <div>SparkChart</div>
   )
 }
 
-export default SparkChart
+export default SparkLine

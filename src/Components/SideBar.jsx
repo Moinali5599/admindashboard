@@ -7,17 +7,19 @@ import {links} from '../data/dummy'
 import { useStateContext } from '../Context/ContextProvider'
 
 const Sidebar = () => {
-  const {activeMenu, setactiveMenu} = useStateContext();
+  const {activeMenu, setActiveMenu, screenSize, setScreenSize} = useStateContext();
   const activeLinkStyle = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg bg-sky-500 text-white text-md m -3'
   const normalLinkStyle = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-gray-700 hover:bg-light-gray dark:text-gray-200 dark:hover:text-black text-md m-2' 
-
+  const handleCloseSidebar = () => {
+    if(activeMenu && screenSize<=900){setActiveMenu(false)}
+  }
   return (
     <div className='ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10'>
       {
         activeMenu && (
           <>
             <div className='flex justify-between items-center'>
-              <Link to='/' onClick={()=> setactiveMenu(false)} 
+              <Link to='/' onClick={handleCloseSidebar} 
               className='items-center flex text-xl mt-4 ml-3 font-extrabold tracking-tight dark:text-white text-slate-900'>
                   <SiShopware className='mr-3'/>
                   <span>AdminBoard</span>
@@ -25,7 +27,7 @@ const Sidebar = () => {
               <TooltipComponent content='Menu' postion='BottomCenter'>
                 <button
                 type='button'
-                onClick={() => setactiveMenu(
+                onClick={() => setActiveMenu(
                   (prevActiveMenu) => !prevActiveMenu
                 )}
                 className='text-xl p-3 mr- block mt-4 hover:text-gray-900'
@@ -44,7 +46,7 @@ const Sidebar = () => {
                         <NavLink 
                         to={`/${link.name}`}
                         key={link.name}
-                        onClick={() => {}}
+                        onClick={handleCloseSidebar}
                         className={({isActive}) =>
                           isActive? activeLinkStyle : normalLinkStyle
                         }
